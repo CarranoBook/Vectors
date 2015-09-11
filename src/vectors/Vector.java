@@ -20,6 +20,15 @@ public class Vector {
         this.values = values;
     }
     
+    public String toString() {
+        String result = "{";
+        for ( int i = 0; i < values.length-1; i++ )
+            result += values[i] + ", ";
+        
+        result += values[values.length - 1] + "}";
+        return result;
+    }
+    
     /**
      * Returns the number of dimensions the vector exists in
      * @return 
@@ -148,7 +157,7 @@ public class Vector {
      */
     public boolean equals(Vector v) {
         if ( this.values.length != v.dimensions() )
-            throw new IllegalArgumentException("Cannot add vectors of unequal dimensions");
+            throw new IllegalArgumentException("vectors of unequal dimensions");
         
         for ( int i = 0; i < values.length; i++ ) {
             if ( !compareDoubles(values[i], v.getCoordinate(i)) )
@@ -158,13 +167,61 @@ public class Vector {
     }
     
     /**
+     * This method checkts to see if a passed vector is equal to 0 - method vector
+     * That is, if a vector is in the opposite direction with equal magnitude
+     * @param v vector to compare
+     * @return true if vectors have same magnitude and opposite direction.
+     */
+    public boolean isOpposite(Vector v) {
+        if ( this.values.length != v.dimensions() )
+            throw new IllegalArgumentException("vectors of unequal dimensions");
+        
+        if ( !compareDoubles(this.magnitude(), v.magnitude()) )
+            return false;
+        
+        return this.isAntiParallel(v);
+    }
+    
+    /**
+     * This method determines whether two vectors are antiparallel - that is
+     * if they are directionally opposite one another
+     * @param v vector to compare
+     * @return true if vectors are antiparallel
+     */
+    public boolean isAntiParallel(Vector v) {
+        if ( this.values.length != v.dimensions() )
+            throw new IllegalArgumentException("vectors of unequal dimensions");
+        
+        Vector a = this.toUnitVector();
+        Vector b = v.toUnitVector();
+        
+        for ( int i = 0; i < this.values.length; i++ ) {
+            if (  !compareDoubles(a.getCoordinate(i), b.getCoordinate(i)) )
+                return false;
+        } //end for
+        return true;
+    }
+    
+    /**
+     * This method determines if two vectors are parallel
+     * @param v vector to compare to method vector
+     * @return true if passed vector is parallel to method vector
+     */
+    public boolean isParallel(Vector v) {
+        if ( this.values.length != v.dimensions() )
+            throw new IllegalArgumentException("vectors of unequal dimensions");
+        
+        Vector a = this.toUnitVector();
+        Vector b = v.toUnitVector();
+        
+        return a.equals(b);
+    }
+    
+    /**
      * Compares two doubles.  If their difference is less than .00001 returns true
      */
     private boolean compareDoubles(double a, double b) {
-        if ( Math.abs(a - b) < .00001 )
-            return true;
-        
-        return false;
+        return Math.abs(a - b) < .00001;
     }
     
 }
