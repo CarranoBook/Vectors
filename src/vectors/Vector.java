@@ -218,10 +218,67 @@ public class Vector {
     }
     
     /**
+     * This method returns a vector that is a scalar multiple of the vector the method
+     * is called on.  For example, if the original vector has magnitude of 3 and
+     * the value passed to the method is 5, this method returns a vector
+     * of magnitude 15 and the same direction as the original vector
+     * @param s scalar multiple
+     * @return vector with same direction but s times original magnitude
+     */
+    public Vector scale(double s) {
+        double[] arr = new double[values.length];
+        for ( int i = 0; i < values.length; i++ )
+            arr[i] = values[i] * s;
+        
+        return new Vector(arr);
+    }
+    
+    
+    /**
+     * This method returns the dot product aka inner product of two vectors
+     * Properties of dot product: Commutative, distributes over vector addition
+     * and bilinear
+     * Two vectors are orthogonal if their dotproduct = 0
+     * @param v a vector
+     * @return dot product of the calling vector and the passed vector
+     */
+    public double dotProduct(Vector v) {
+        if ( this.values.length != v.dimensions() )
+            throw new IllegalArgumentException("vectors of unequal dimensions");
+        
+        double dot = 0;
+        for ( int i = 0; i < values.length; i++ )
+            dot += this.values[i] * v.getCoordinate(i);
+        
+        return dot;
+    }
+    
+    
+    /**
+     * dot product = ||A||*||B||*cos(theta)
+     * This method returns the angle between the calling vector and the passed
+     * vector
+     * @param v  
+     * @return the angle (in radians) between the two vectors
+     */
+    public double getAngleBetween(Vector v) {
+        if ( this.values.length != v.dimensions() )
+            throw new IllegalArgumentException("vectors of unequal dimensions");
+        
+        double dot = this.dotProduct(v);
+        dot /= this.magnitude() * v.magnitude();
+        
+        return Math.acos(dot);  
+    }
+    
+    public double getAngleBetweenDegrees(Vector v) {
+        return getAngleBetween(v) * 180. / Math.PI;
+    }
+    
+    /**
      * Compares two doubles.  If their difference is less than .00001 returns true
      */
     private boolean compareDoubles(double a, double b) {
         return Math.abs(a - b) < .00001;
     }
-    
 }
