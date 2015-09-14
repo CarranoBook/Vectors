@@ -16,13 +16,15 @@ public class Vectors {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        double[] arr = {3., 4.};
+       /* double[] arr = {3., 4.};
         Vector v = new Vector(arr);
         testMagnitude(v);
         double [] arr2 = {-2.3, 32};
         Vector g = new Vector(arr2);
         testEquals(v, g);
-        testDecompose(v);
+        testDecompose(v);*/
+        Vector2d test = new Vector2d(4, 3);
+        testMagnitude(test);
         
     }
     

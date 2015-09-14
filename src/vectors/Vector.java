@@ -12,6 +12,10 @@ package vectors;
 public class Vector {
     double[] values;
     
+    
+    public Vector() {
+        this.values = null;
+    }
     /**
      * Instantiates an n-dimensional Vector in Euclidean space
      * @param values each member of the array represents a coordinate of the vector
@@ -19,6 +23,7 @@ public class Vector {
     Vector(double[] values) {
         this.values = values;
     }
+   
     
     public String toString() {
         String result = "{";
