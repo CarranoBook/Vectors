@@ -24,7 +24,11 @@ public class Vectors {
         testEquals(v, g);
         testDecompose(v);*/
         Vector2d test = new Vector2d(4, 3);
-        testMagnitude(test);
+        double[] t = test.decomposePolar();
+        System.out.println("Magnitude: " + t[0] + "\nDirection: " + t[1] + " radians");
+        test = test.toUnitVector();
+        t = test.decomposePolar();
+        System.out.println("Magnitude: " + t[0] + "\nDirection: " + t[1] + " radians");
         
     }
     

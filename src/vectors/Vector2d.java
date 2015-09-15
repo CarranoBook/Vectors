@@ -43,4 +43,11 @@ public class Vector2d extends Vector {
         double[] result = {this.magnitude(), this.getTheta()};
         return result;
     }
+    
+    @Override
+    public Vector2d toUnitVector() {
+        
+        return new Vector2d(1, this.getTheta(), true);
+    }
+    
 }
