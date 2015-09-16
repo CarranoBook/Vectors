@@ -31,6 +31,14 @@ public class Vector2d extends Vector {
     public int dimensions() { return 2;}
     
     @Override
+    public Vector2d add(Vector v) {
+        if ( v.dimensions() != 2 ) 
+            throw new IllegalStateException("Cannot add vectors of unequal dimension");
+        
+        return new Vector2d(this.values[0] + v.getCoordinate(0), this.values[1] + v.getCoordinate(1) );
+    }
+    
+    @Override
     public double magnitude() {
         return Math.sqrt(values[0]*values[0] + values[1] * values[1]);
     }
@@ -45,9 +53,35 @@ public class Vector2d extends Vector {
     }
     
     @Override
+    public Vector2d[] decompose() {
+        Vector2d[] result = new Vector2d[2];
+        Vector2d x = new Vector2d(this.values[0], 0);
+        Vector2d y = new Vector2d(0, this.values[1]);
+        result[0] = x;
+        result[1] = y;
+        return result;
+    }
+    
+    @Override
     public Vector2d toUnitVector() {
         
         return new Vector2d(1, this.getTheta(), true);
+    }
+    
+    @Override
+    public Vector2d subtract(Vector v) {
+        if ( v.dimensions() != 2 )
+            throw new IllegalStateException("Cannot subtract vectors of different dimensions");
+        
+        double x = this.values[0] - v.getCoordinate(0);
+        double y = this.values[1] - v.getCoordinate(1);
+        
+        return new Vector2d(x, y);
+    }
+    
+    @Override
+    public Vector2d scale(double s) {
+        return new Vector2d(values[0] * s, values[1] * s);
     }
     
 }
