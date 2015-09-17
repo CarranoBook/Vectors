@@ -44,4 +44,39 @@ public class Vector3d extends Vector {
         return new Vector3d(a, b, c);
     }
     
+    @Override 
+    public Vector3d add(Vector v) {
+        if ( v.dimensions() != 3 )
+            throw new IllegalStateException("Vector must have 3 dimensions to add");
+        
+        double[] arr = v.getCoordinates();
+        return new Vector3d(this.values[0] + arr[0], values[1]+ arr[1], values[2] + arr[2]);
+    }
+    
+    @Override
+    public int dimensions() {
+        return 3;
+    }
+    
+    @Override
+    public Vector3d scale(double s) {
+       return new Vector3d(values[0] * s, values[1] * s, values[2] * s); 
+    }
+    
+    @Override
+    public Vector3d subtract(Vector v) {
+        if ( v.dimensions() != 3 )
+            throw new IllegalStateException("Vector must have 3 dimensions to substract");
+        
+        double[] arr = v.getCoordinates();
+        return new Vector3d(values[0] - arr[0], values[1] - arr[1], values[2] - arr[2]);
+    }
+    
+    @Override
+    public Vector3d toUnitVector() {
+        double fac = 1.0 / this.magnitude();
+        
+        return this.scale(fac);
+    }
+    
 }
