@@ -20,8 +20,12 @@ public class Vector {
      * Instantiates an n-dimensional Vector in Euclidean space
      * @param values each member of the array represents a coordinate of the vector
      */
-    Vector(double[] values) {
+    public Vector(double[] values) {
         this.values = values;
+    }
+    
+    public double[] toArray() {
+        return this.getCoordinates();
     }
    
     
